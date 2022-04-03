@@ -59,7 +59,11 @@ func main() {
 	tickers := getTickers()
 	balances, usdtB := getBalances()
 	var sum float64
+	var lastBTCPrice string
 	for _, ticker := range tickers {
+		if ticker.Symbol == "BTCUSDT" {
+			lastBTCPrice = ticker.Price
+		}
 		asset, after, ok := strings.Cut(ticker.Symbol, "USDT")
 		if ok && after == "" {
 			item, found := balances[asset]
@@ -75,6 +79,8 @@ func main() {
 		}
 	}
 	sum = sum + balances["USDT"]
+	lib.SendMessage("-----------------------")
 	lib.SendMessage("ALL: " + strconv.FormatFloat(sum, 'f', 2, 64))
 	lib.SendMessage("FREE: " + usdtB.Free)
+	lib.SendMessage("LAST BTC: " + lastBTCPrice)
 }
