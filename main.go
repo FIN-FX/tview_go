@@ -79,8 +79,11 @@ func main() {
 		}
 	}
 	sum = sum + balances["USDT"]
+	lbp, _ := strconv.ParseFloat(lastBTCPrice, 64)
+	rate := sum / lbp
 	lib.SendMessage("-----------------------")
 	lib.SendMessage("ALL: " + strconv.FormatFloat(sum, 'f', 2, 64))
 	lib.SendMessage("FREE: " + usdtB.Free)
 	lib.SendMessage("LAST BTC: " + lastBTCPrice)
+	lib.SendMessage("RATE: " + strconv.FormatFloat(rate, 'f', 8, 64))
 }
